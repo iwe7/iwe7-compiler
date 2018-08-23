@@ -5,7 +5,17 @@
     "name": "imeepos",
     "email": "1037483576@qq.com"
   },
-  "dependencies": {},
+  "dependencies": {
+    "list-dir-file": "*",
+    "handlebars": "*",
+    "@angular/core": "*",
+    "@angular-devkit/core": "*",
+    "rxjs": "*",
+    "reflect-metadata": "*"
+  },
   "main": "index.js",
-  "typings": "index.d.ts"
+  "typings": "index.d.ts",
+  "devDependencies": {
+    "@types/handlebars": "*"
+  }
 }
