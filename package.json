@@ -1,0 +1,11 @@
+{
+  "name": "iwe7-compiler",
+  "version": "1.0.8",
+  "author": {
+    "name": "imeepos",
+    "email": "1037483576@qq.com"
+  },
+  "dependencies": {},
+  "main": "index.js",
+  "typings": "index.d.ts"
+}
