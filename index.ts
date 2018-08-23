@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { compile } from 'handlebars';
-import { ReflectiveInjector } from '@angular/core';
+import { ReflectiveInjector, Provider } from '@angular/core';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname, } from 'path';
 import { resolve } from '@angular-devkit/core/node';
@@ -10,7 +10,37 @@ import { listDir } from 'list-dir-file';
 
 export const TemplateMetadata = '__template_metadata__';
 
-const _map: Map<any, any> = new Map();
+const _map: Map<any, Provider> = new Map();
+interface KeyValue {
+    [key: string]: string;
+}
+@Injectable()
+export class Input extends Map<string, string> {
+    constructor() {
+        super();
+    }
+}
+
+@Injectable()
+export class Option extends Map<string, string> {
+    constructor() {
+        super();
+    }
+}
+
+export function registerInput(input: Map<string, string>) {
+    _map.set(Input, {
+        provide: Input,
+        useValue: input
+    })
+}
+
+export function registerOption(option: Map<string, string>) {
+    _map.set(Option, {
+        provide: Option,
+        useValue: option
+    })
+}
 
 export interface TemplateOptions {
     input: string;
@@ -19,11 +49,7 @@ export interface TemplateOptions {
 
 export function Injectable() {
     return (target: any) => {
-        if (_map.has(target)) {
-            console.log('已存在类', target);
-        } else {
-            _map.set(target, target);
-        }
+        _map.set(target, target);
     }
 }
 
@@ -41,7 +67,7 @@ export function iwe7Compiler(source: string, options: any) {
 
 export const rejector = (): ReflectiveInjector => {
     const classes = [];
-    _map.forEach(m => {
+    _map.forEach((m: Provider) => {
         classes.push(m);
     });
     return ReflectiveInjector.resolveAndCreate(classes);

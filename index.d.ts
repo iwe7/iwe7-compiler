@@ -1,6 +1,14 @@
 import "reflect-metadata";
 import { ReflectiveInjector } from '@angular/core';
 export declare const TemplateMetadata = "__template_metadata__";
+export declare class Input extends Map<string, string> {
+    constructor();
+}
+export declare class Option extends Map<string, string> {
+    constructor();
+}
+export declare function registerInput(input: Map<string, string>): void;
+export declare function registerOption(option: Map<string, string>): void;
 export interface TemplateOptions {
     input: string;
     output: string;
